@@ -9,21 +9,21 @@
 			<div class="login-form-grids">
 				<h5 class="text-center">Payment Form</h5>
 				<div class="col-md-8 col-md-offset-2 well">
-					{{ Form::open() }}
+					{{ Form::open(['route'=>'new-order','method'=>'POST']) }}
 					<table class="table table-bordered" >
 						<tr>
 							<th>Cash On Delivery </th>
-								<td><input type="radio" name="payment-type" value="Cash">Cash On Delivery </td>
+								<td><input type="radio" name="payment_type" value="Cash">Cash On Delivery </td>
 							
 						</tr>
 						<tr>
 							<th>Paypal</th>
-								<td><input type="radio" name="payment-type" value="Paypal">Paypal</td>
+								<td><input type="radio" name="payment_type" value="Paypal">Paypal</td>
 							
 						</tr>
 						<tr>
 							<th>B-kash</th>
-								<td><input type="radio" name="payment-type" value="Bkash">B-kash</td>
+								<td><input type="radio" name="payment_type" value="Bkash">B-kash</td>
 							
 						</tr>
 						<tr>

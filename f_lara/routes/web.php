@@ -109,3 +109,13 @@ Route::get('/checkout/payment', [
 	'as'=>'checkout-payment'
 
 ]);
+Route::post('/checkout/order', [
+	'uses'=>'checkoutController@newOrder',
+	'as'=>'new-order'
+
+]);
+Route::get('/complete/order', [
+	'uses'=>'checkoutController@completeOrder',
+	'as'=>'complete-order'
+
+]);

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Mail;
 use Session;
 use App\Shipping;
+use App\Order;
+use App\Payment;
+use App\OrderDetail;
+use Cart;
 
 class checkoutController extends Controller
 {
@@ -62,5 +66,65 @@ class checkoutController extends Controller
    	return view('frontEnd.checkout.payment');
 
    }
+   public function newOrder(Request $request){
+
+
+
+   	//return $request->all();
+   	$paymentType = $request->payment_type;
+
+   	if($paymentType=='Cash'){
+   		$order = new Order();
+   		$order->customer_id=Session::get('customerId');
+   		$order->shopping_id=Session::get('shippingId');
+   		$order->order_total=Session::get('orderTotal');
+   		$order->save();
+
+
+   		$payment = new Payment();
+   		$payment->order_id=$order->id;
+   		$payment->payment_type=$paymentType;
+   		$payment->save();
+
+
+   		$cartProducts=Cart::content();
+   		foreach ($cartProducts as $cartProduct) {
+   			$orderDetail = new OrderDetail();
+   			$orderDetail->order_id=$order->id;
+   			$orderDetail->product_id=$cartProduct->id;
+   			$orderDetail->product_name=$cartProduct->name;
+   			$orderDetail->product_price=$cartProduct->price;
+   			$orderDetail->product_quantity=$cartProduct->qty;
+   			$orderDetail->save();
+
+   		}
+   		Cart::destroy();
+
+   		return redirect('/complete/order');
+
+
+
+
+
+
+
+   	}
+   	else if($paymentType=='Paypal'){
+
+   	}
+   	else if($paymentType=='Bkash'){
+   		
+   	}
+
+
+
+
+
+  }
+  public function completeOrder(){
+  	return 'success';
+
+  }
 
 }
+

@@ -56,12 +56,22 @@
 						<li>Product Price<i></i> <span>{{ $sum }} </span></li>
 						<li>Vat <i></i> <span>{{ $vat=0 }}</span></li>
 						<li>Shipping cost <i></i> <span>{{ $charg=0 }} </span></li>
-						<li>Total <i></i> <span>{{ $sum + $vat+$charg }}</span></li>
+						<li>Total <i></i> <span>{{$orderTotal = $sum + $vat+$charg }}</span></li>
+						<?php 
+							Session::put('orderTotal',$orderTotal);
+						?>
 					</ul>
 				</div>
 				<div class="row">
 					<div class="col-md-11 col-md-offset-1">
+						@if(Session::get('customerId')&&Session::get('shippingId'))
+						<a href="{{ route('checkout-payment') }}" class="btn btn-success pull-right">CheckOut</a>
+						@elseif(Session::get('customerId'))
+						<a href="{{ route('checkout-shipping') }}" class="btn btn-success pull-right">CheckOut</a>
+						@else
 						<a href="{{ route('checkout') }}" class="btn btn-success pull-right">CheckOut</a>
+
+						@endif
 						<a href="" class="btn btn-success">Continue Shopping</a>
 					</div>
 				</div>
