@@ -6,9 +6,13 @@
 			<div class="agile-login">
 				<ul>
 					<li><a href="registered.html"> Create Account </a></li>
-					<li><a href="login.html">Login</a></li>
+					@if(Session::get('customerId'))
+					<li><a href="{{ route('csutomer-logout') }}">Logout</a></li>
+					@else
+					<li><a href="{{ route('new-cutomer-login') }}">Login</a></li>
+					@endif
 					<li><a href="contact.html">Help</a></li>
-					
+				
 				</ul>
 			</div>
 			<div class="product_list_header">  

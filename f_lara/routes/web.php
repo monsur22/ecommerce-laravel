@@ -119,3 +119,18 @@ Route::get('/complete/order', [
 	'as'=>'complete-order'
 
 ]);
+Route::post('/checkout/csutomer-login', [
+	'uses'=>'checkoutController@customerLogin',
+	'as'=>'csutomer-login'
+
+]);
+Route::get('/checkout/csutomer-logout', [
+	'uses'=>'checkoutController@customerLogout',
+	'as'=>'csutomer-logout'
+
+]);
+Route::get('/checkout/new-cutomer-login', [
+	'uses'=>'checkoutController@newcustomerLogin',
+	'as'=>'new-cutomer-login'
+
+]);

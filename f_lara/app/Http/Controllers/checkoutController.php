@@ -18,6 +18,8 @@ class checkoutController extends Controller
    }
 
    public function customerSingUp(Request $request){
+   	$this->validate($request,['email_address'=>'email|unique:customers,email_address']);
+
    	$customer = new Customer();
    	$customer->firstName=$request->firstName;
    	$customer->lastName=$request->lastName;
@@ -125,6 +127,34 @@ class checkoutController extends Controller
   	return 'success';
 
   }
+  public function customerLogin(Request $request){
+		$customer=Customer::where('email_address',$request->email_address)->first();
+		if (password_verify($request->password, $customer->password)) {
+			$customerId=$customer->id;
+		   Session::put('customerId',$customerId);
+		   Session::put('customerName',$customer->firstName .' '. $customer->lastName);
+
+		   return redirect('/checkout/shipping');
+		} else {
+		    return redirect('/checkout')->with('message','Password Invalid');
+		}
+
+
+  }
+
+  public function customerLogout(){
+  	Session::forget('customerId');
+  	Session::forget('customerName');
+  	return redirect('/');
+
+
+
+  }
+  public function newcustomerLogin(){
+  	return view('frontEnd.customer.customer-login');
+
+  }
+
 
 }
 
